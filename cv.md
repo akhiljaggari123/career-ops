@@ -1,8 +1,8 @@
 # Akhil Jaggari
-Dallas, TX | 940-304-7888 | ajaggari123@gmail.com | [linkedin.com/in/jaggariakhil](https://www.linkedin.com/in/jaggariakhil/)
+Dallas, TX | 940-304-7888 | ajaggari123@gmail.com | [linkedin.com/in/jaggariakhil](https://www.linkedin.com/in/jaggariakhil/) | [github.com/akhiljaggari123](https://github.com/akhiljaggari123) | [akhiljaggari.vercel.app](https://akhiljaggari.vercel.app)
 
 ## PROFESSIONAL SUMMARY
-Senior Software Engineer with over 4 years of experience architecting high-scale distributed systems and mission-critical financial infrastructure. Expert in building secure identity services and real-time Kafka pipelines for 1,000+ businesses, achieving 99.9% uptime and 45% latency reductions. Proven track record of delivering backend systems for property debt deals exceeding $10 billion and architecting custom Model Context Protocol (MCP) server infrastructure for autonomous AI agents. Advanced technical leader with a 4.0/4.0 GPA Masters, dedicated to engineering robust, scalable solutions for global technology leaders.
+Senior Software Engineer with 5+ years of experience architecting high-scale distributed systems and mission-critical financial infrastructure. Expert in building secure identity services and real-time Kafka pipelines for 1,000+ businesses, achieving 99.9% uptime and 45% latency reductions. Proven track record of delivering backend systems for property debt deals exceeding $10 billion and architecting custom Model Context Protocol (MCP) server infrastructure for autonomous AI agents. Advanced technical leader with a 4.0/4.0 GPA Masters, dedicated to engineering robust, scalable solutions for global technology leaders.
 
 ## TECHNICAL SKILLS
 - **Languages:** Java, Python, JavaScript, TypeScript, C++

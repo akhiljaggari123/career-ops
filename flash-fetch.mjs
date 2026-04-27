@@ -20,72 +20,164 @@ const REMOTE   = ['Remote', 'United States', 'US', 'USA', 'Anywhere'];
 // Company → [slug, board, host, portal]
 const COMPANIES = {
   // ── GREENHOUSE (verified) ──────────────────────────────────────────
-  'Airbnb':             ['airbnb',               'greenhouse'],
+  'Adyen':              ['adyen',                'greenhouse'],
   'Affirm':             ['affirm',               'greenhouse'],
+  'Airbnb':             ['airbnb',               'greenhouse'],
+  'Algolia':            ['algolia',              'greenhouse'],
+  'Alloy':              ['alloy',                'greenhouse'],
+  'Amplitude':          ['amplitude',            'greenhouse'],
+  'Anthropic':          ['anthropic',            'greenhouse'],
+  'Apollo':             ['apollo',               'greenhouse'],
+  'Arize AI':           ['arizeai',              'greenhouse'],
   'Asana':              ['asana',                'greenhouse'],
+  'AssemblyAI':         ['assemblyai',           'greenhouse'],
   'Atlassian':          ['atlassian',            'greenhouse'],
   'Better.com':         ['better',               'greenhouse'],
+  'Bitwarden':          ['bitwarden',            'greenhouse'],
   'Box':                ['box',                  'greenhouse'],
   'Brex':               ['brex',                 'greenhouse'],
+  'Buildkite':          ['buildkite',            'greenhouse'],
+  'Calendly':           ['calendly',             'greenhouse'],
   'Canva':              ['canva',                'greenhouse'],
+  'Carta':              ['carta',                'greenhouse'],
   'Chime':              ['chime',                'greenhouse'],
+  'Clarity AI':         ['clarityai',            'greenhouse'],
   'Cloudflare':         ['cloudflare',           'greenhouse'],
+  'CockroachLabs':      ['cockroachlabs',        'greenhouse'],
+  'Coalition':          ['coalition',            'greenhouse'],
   'Coinbase':           ['coinbase',             'greenhouse'],
   'Compass':            ['compass',              'greenhouse'],
   'Confluent':          ['confluent',            'greenhouse'],
+  'CoreWeave':          ['coreweave',            'greenhouse'],
+  'Coursera':           ['coursera',             'greenhouse'],
+  'Cresta':             ['cresta',               'greenhouse'],
+  'Dashlane':           ['dashlane',             'greenhouse'],
   'Databricks':         ['databricks',           'greenhouse'],
   'Datadog':            ['datadog',              'greenhouse'],
+  'Dialpad':            ['dialpad',              'greenhouse'],
+  'Discord':            ['discord',              'greenhouse'],
   'DocuSign':           ['docusign',             'greenhouse'],
   'DoorDash':           ['doordash',             'greenhouse'],
   'DraftKings':         ['draftkings',           'greenhouse'],
   'Dropbox':            ['dropbox',              'greenhouse'],
+  'Duolingo':           ['duolingo',             'greenhouse'],
+  'Elastic':            ['elastic',              'greenhouse'],
+  'Epic Games':         ['epicgames',            'greenhouse'],
   'Expedia Group':      ['expedia',              'greenhouse'],
+  'Faire':              ['faire',                'greenhouse'],
   'FanDuel':            ['fanduel',              'greenhouse'],
+  'Figma':              ['figma',                'greenhouse'],
+  'Fireblocks':         ['fireblocks',           'greenhouse'],
+  'Five9':              ['five9',                'greenhouse'],
+  'Fivetran':           ['fivetran',             'greenhouse'],
+  'Flexport':           ['flexport',             'greenhouse'],
   'Gemini':             ['gemini',               'greenhouse'],
+  'Ginkgo Bioworks':    ['ginkgobioworks',       'greenhouse'],
+  'Glean':              ['gleanwork',            'greenhouse'],
+  'GoCardless':         ['gocardless',           'greenhouse'],
   'Gong':               ['gong',                 'greenhouse'],
+  'Grafana Labs':       ['grafanalabs',          'greenhouse'],
+  'Guild':              ['guild',                'greenhouse'],
   'Gusto':              ['gusto',                'greenhouse'],
   'HashiCorp':          ['hashicorp',            'greenhouse'],
   'HubSpot':            ['hubspot',              'greenhouse'],
+  'Hume AI':            ['humeai',               'greenhouse'],
   'Instacart':          ['instacart',            'greenhouse'],
+  'Intercom':           ['intercom',             'greenhouse'],
   'Intuit':             ['intuit',               'greenhouse'],
+  'Klaviyo':            ['klaviyo',              'greenhouse'],
   'Kraken':             ['kraken',               'greenhouse'],
+  'Lattice':            ['lattice',              'greenhouse'],
+  'LaunchDarkly':       ['launchdarkly',         'greenhouse'],
+  'LivePerson':         ['liveperson',           'greenhouse'],
+  'Lucid Motors':       ['lucidmotors',          'greenhouse'],
+  'Marqeta':            ['marqeta',              'greenhouse'],
+  'Maven':              ['maven',                'greenhouse'],
+  'Mercury':            ['mercury',              'greenhouse'],
   'Miro':               ['miro',                 'greenhouse'],
+  'Mixpanel':           ['mixpanel',             'greenhouse'],
   'MongoDB':            ['mongodb',              'greenhouse'],
+  'Navan':              ['tripactions',          'greenhouse'],
+  'Neo4j':              ['neo4j',                'greenhouse'],
+  'Netlify':            ['netlify',              'greenhouse'],
   'Netskope':           ['netskope',             'greenhouse'],
+  'New Relic':          ['newrelic',             'greenhouse'],
+  'NICE':               ['nice',                 'greenhouse'],
+  'Nuro':               ['nuro',                 'greenhouse'],
+  'OKX':                ['okx',                  'greenhouse'],
   'Okta':               ['okta',                 'greenhouse'],
+  'Ooma':               ['ooma',                 'greenhouse'],
+  'Opendoor':           ['opendoor',             'greenhouse'],
   'Oscar Health':       ['oscar',                'greenhouse'],
+  'Oura':               ['oura',                 'greenhouse'],
   'Palo Alto Networks': ['paloaltonetworks',     'greenhouse'],
+  'Parloa':             ['parloa',               'greenhouse'],
+  'Pendo':              ['pendo',                'greenhouse'],
   'Pinterest':          ['pinterest',            'greenhouse'],
   'Plaid':              ['plaid',                'greenhouse'],
+  'PlanetScale':        ['planetscale',          'greenhouse'],
+  'PolyAI':             ['polyai',               'greenhouse'],
+  'Project44':          ['project44',            'greenhouse'],
+  'Qualtrics':          ['qualtrics',            'greenhouse'],
   'Quora':              ['quora',                'greenhouse'],
   'Ramp':               ['ramp',                 'greenhouse'],
+  'Reddit':             ['reddit',               'greenhouse'],
+  'RingDNA':            ['ringdna',              'greenhouse'],
+  'Riot Games':         ['riotgames',            'greenhouse'],
   'Rippling':           ['rippling',             'greenhouse'],
+  'Roblox':             ['roblox',               'greenhouse'],
   'Robinhood':          ['robinhood',            'greenhouse'],
   'Rubrik':             ['rubrik',               'greenhouse'],
   'Samsara':            ['samsara',              'greenhouse'],
+  'Scale AI':           ['scaleai',              'greenhouse'],
+  'Sezzle':             ['sezzle',               'greenhouse'],
   'Slack':              ['slack',                'greenhouse'],
+  'Smartsheet':         ['smartsheet',           'greenhouse'],
   'Snap':               ['snapchat',             'greenhouse'],
   'Snowflake':          ['snowflake-computing',  'greenhouse'],
   'Snyk':               ['snyk',                 'greenhouse'],
   'SoFi':               ['sofi',                 'greenhouse'],
+  'SpaceX':             ['spacex',               'greenhouse'],
+  'Speechmatics':       ['speechmatics',         'greenhouse'],
   'Splunk':             ['splunk',               'greenhouse'],
+  'Squarespace':        ['squarespace',          'greenhouse'],
+  'Stitch Fix':         ['stitchfix',            'greenhouse'],
+  'StockX':             ['stockx',               'greenhouse'],
   'Stripe':             ['stripe',               'greenhouse'],
+  'Sumo Logic':         ['sumologic',            'greenhouse'],
+  'Tailscale':          ['tailscale',            'greenhouse'],
+  'Tanium':             ['tanium',               'greenhouse'],
   'ThoughtSpot':        ['thoughtspot',          'greenhouse'],
+  'Thumbtack':          ['thumbtack',            'greenhouse'],
   'Toast':              ['toast',                'greenhouse'],
+  'Together AI':        ['togetherai',           'greenhouse'],
+  'TrueLayer':          ['truelayer',            'greenhouse'],
   'Turo':               ['turo',                 'greenhouse'],
+  'Typeform':           ['typeform',             'greenhouse'],
+  'Udemy':              ['udemy',                'greenhouse'],
   'Unity':              ['unity',                'greenhouse'],
+  'Upstart':            ['upstart',              'greenhouse'],
   'Vanta':              ['vanta',                'greenhouse'],
+  'Vercel':             ['vercel',               'greenhouse'],
   'Walmart':            ['walmart',              'greenhouse'],
+  'Waymo':              ['waymo',                'greenhouse'],
   'Wayfair':            ['wayfair',              'greenhouse'],
   'Wealthfront':        ['wealthfront',          'greenhouse'],
+  'Webflow':            ['webflow',              'greenhouse'],
+  'Workato':            ['workato',              'greenhouse'],
   'Yext':               ['yext',                 'greenhouse'],
+  'Yugabyte':           ['yugabyte',             'greenhouse'],
   'Zendesk':            ['zendesk',              'greenhouse'],
   'Zillow':             ['zillow',               'greenhouse'],
+  'Zoominfo':           ['zoominfo',             'greenhouse'],
   'Zscaler':            ['zscaler',              'greenhouse'],
+  'Zwift':              ['zwift',                'greenhouse'],
 
   // ── WORKDAY (verified) ─────────────────────────────────────────────
   'Adobe':              ['adobe',                'workday', 'adobe.wd5.myworkdayjobs.com', 'external_experienced'],
   'Amazon':             ['amazon',               'workday', 'amazon.wd1.myworkdayjobs.com', 'External'],
+  'Capital One':        ['capitalone',           'workday', 'capitalone.wd12.myworkdayjobs.com', 'Capital_One'],
+  'Freddie Mac':        ['freddiemac',           'workday', 'freddiemac.wd5.myworkdayjobs.com', 'External'],
   'Google':             ['google',               'workday', 'google.wd1.myworkdayjobs.com', 'External'],
   'Meta':               ['meta',                 'workday', 'meta.wd1.myworkdayjobs.com', 'External'],
   'Microsoft':          ['microsoft',            'workday', 'microsoft.wd1.myworkdayjobs.com', 'External'],
@@ -101,7 +193,7 @@ const COMPANIES = {
   'Cash App':           ['cashapp',              'lever'],
   'Coinbase':           ['coinbase',             'lever'],
   'Etsy':               ['etsy',                 'lever'],
-  'Figma':              ['figma',                'lever'],
+  'Ro':                 ['ro',                   'lever'],
   'LinkedIn':           ['linkedin',             'lever'],
   'Lyft':               ['lyft',                 'lever'],
   'Medium':             ['medium',               'lever'],
@@ -128,23 +220,32 @@ const COMPANIES = {
 function isMatch(title, location = '') {
   const t = title.toLowerCase();
   const l = location.toLowerCase();
-  
+
   // Skip roles that imply 8-12+ years experience (Staff, Principal, Architect, etc.)
   const highSeniority = ['staff', 'principal', 'architect', 'distinguished', 'fellow', 'manager', 'director', 'vp', 'head of', 'lead engineer'];
   if (highSeniority.some(s => t.includes(s) && !t.includes('lead to'))) return false;
 
-  // Senior/Mid level markers to allow
-  const allowedSeniority = ['senior', 'ii', 'iii', 'iv', 'v', 'l4', 'l5', 'l6', 'level 4', 'level 5'];
+  // Off-stack / not interested — mirrors portals.yml negatives
+  const offStack = [
+    'android', 'ios', 'mobile', '.net', 'php', 'ruby', 'rust',
+    'embedded', 'firmware', 'fpga', 'asic', 'hardware',
+    'blockchain', 'web3', 'crypto', 'game', 'unity', 'unreal',
+    'salesforce admin', 'sap ', 'oracle ebs', 'mainframe', 'cobol',
+    'research scientist', 'research engineer', 'applied scientist',
+    'developer advocate', 'devrel',
+    'product manager', 'technical pm', 'gtm engineer', 'revops', 'business systems'
+  ];
+  if (offStack.some(s => t.includes(s))) return false;
 
   // Skip non-US locations even if they say 'remote'
-  const nonUsLocs = ['poland', 'spain', 'canada', 'india', 'uk', 'germany', 'london', 'toronto', 'vancouver', 'madrid', 'berlin', 'warsaw', 'remote spain', 'remote poland', 'remote canada'];
+  const nonUsLocs = ['poland', 'spain', 'canada', 'india', 'uk', 'germany', 'london', 'toronto', 'vancouver', 'madrid', 'berlin', 'warsaw', 'taipei', 'taiwan', 'tokyo', 'japan', 'singapore', 'sydney', 'amsterdam', 'dublin', 'ireland', 'remote spain', 'remote poland', 'remote canada'];
   if (nonUsLocs.some(nonUs => l.includes(nonUs))) return false;
 
   // Match if title contains any role keyword
   const hasRole  = ROLES.some(r => t.includes(r.toLowerCase()));
   // Remote or US-based
   const isRemote = REMOTE.some(r => l.includes(r.toLowerCase())) || l === '' || l.includes('usa') || l.includes('united states');
-  
+
   return hasRole && isRemote;
 }
 
@@ -256,18 +357,21 @@ async function main() {
   // Sort by priority before dedup so best roles survive
   filtered.sort((a, b) => priorityScore(b) - priorityScore(a));
 
-  // Deduplicate: max 5 distinct base roles per company
-  const seen = {};
+  // Dedup: max 2 entries per (company, base role); max 10 distinct roles per company
+  const titleCount = {};    // {company: {baseTitle: count}}
+  const distinctRoles = {}; // {company: distinct-role-count}
   const deduped = [];
   for (const r of filtered) {
-    const key = r.company;
-    if (!seen[key]) seen[key] = [];
-    // Normalize: strip team name in parens to detect true duplicates
     const baseTitle = r.title.replace(/\s*\(.*?\)\s*/g, '').trim().toLowerCase();
-    if (!seen[key].includes(baseTitle)) {
-      seen[key].push(baseTitle);
-      if (seen[key].length <= 10) deduped.push(r);
+    if (!titleCount[r.company]) titleCount[r.company] = {};
+    const seenCount = titleCount[r.company][baseTitle] || 0;
+    if (seenCount >= 2) continue;                                    // cap same role at 2
+    if (seenCount === 0) {                                           // first time: count toward role cap
+      if ((distinctRoles[r.company] || 0) >= 10) continue;
+      distinctRoles[r.company] = (distinctRoles[r.company] || 0) + 1;
     }
+    titleCount[r.company][baseTitle] = seenCount + 1;
+    deduped.push(r);
   }
   const unique = deduped;
 

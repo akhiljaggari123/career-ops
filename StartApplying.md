@@ -7,6 +7,28 @@
 
 ---
 
+## 🗺️ Two-Part Workflow
+
+This SOP runs in **two distinct phases**. Complete Part 1 fully before starting Part 2 — never interleave them.
+
+| Phase | Purpose | Browser? | Trigger phrase |
+|---|---|---|---|
+| **Part 1 — Prepare** (Steps 1–3) | Fetch all jobs → score → filter to 4.2+ → generate tailored PDF + cover letter for each | ❌ No browser, all batch | `start applying`, `prepare`, `prep batch` |
+| **Part 2 — Apply** (Step 4) | Open one tab per role, fill forms using the prepared materials, stop before Submit | ✅ Browser, one tab per job | `apply for easy jobs`, `apply for hard jobs`, `apply for all jobs` |
+
+**Default behavior when the user says "start applying":**
+1. Run **Part 1 end-to-end** without prompting between steps (fetch → score → generate all materials)
+2. Print a summary at the end: roles fetched, roles ≥4.2, PDFs generated, cover letters generated
+3. **Pause and ask** the user which apply mode for Part 2 (easy / hard / all)
+4. Only then start Part 2
+
+If the user says only "prepare" / "prep batch" — do Part 1 only and stop.
+If the user says only "apply for ..." — assume Part 1 is done; verify materials exist for the filtered URLs in `output/`; flag any missing and ask before proceeding.
+
+---
+
+# 📦 PART 1 — PREPARE (no browser, all batch)
+
 ## ⚡ Step 1: Fetch Jobs (NO BROWSER — use APIs)
 
 ### Fast fetch (target companies only)
@@ -59,10 +81,13 @@ grep -i "remote us\|united states\|usa\|remote, us" data/pipeline.md | grep -iv 
 
 ---
 
-## 📄 Step 3: Generate Tailored Resume (per role) — PROPER FLOW
+## 📄 Step 3: Generate Tailored Resume + Cover Letter (per role) — PROPER FLOW
 
 > **Read `modes/pdf.md` + `modes/_profile.md` before generating. Do NOT copy the same HTML for every role.**
 
+For every role with score ≥ 4.2, produce **two artifacts** before any browser work begins.
+
+### 3a. Tailored Resume PDF
 ```bash
 # 1. Read cv.md + JD keywords from report → build tailored HTML
 # 2. Save tailored HTML to output/cv-akhil-jaggari-{company}.html
@@ -73,12 +98,29 @@ node generate-pdf.mjs output/cv-akhil-jaggari-{company}.html \
 # 4. Update Resume column in data/pipeline.md for that URL row
 ```
 
+### 3b. Tailored Cover Letter
+```bash
+# 1. Read cv.md + report's JD keywords + Section G (proof points) if exists
+# 2. Build tailored HTML (one page, ≤ 350 words, no rambling)
+#    - Para 1: Hook with company-specific signal (product, recent launch, mission alignment)
+#    - Para 2: Proof point #1 with metric tied to JD's biggest requirement
+#    - Para 3: Proof point #2 + skill match (cite 3 JD keywords)
+#    - Para 4: Closing CTA (1 sentence, confident not pleading)
+# 3. Save tailored HTML to output/cover-akhil-jaggari-{company}.html
+# 4. Generate A4 PDF using the same renderer
+node generate-pdf.mjs output/cover-akhil-jaggari-{company}.html \
+  "output/Akhil_Jaggari_{Company}_{RoleShort}_{PORTAL_JOB_ID}_Cover.pdf"
+```
+
+If `templates/cover-template.html` does not exist yet, create it once (single-page A4, header matches `templates/cv-template.html` for visual consistency) and reuse for every role.
+
 ### Naming Convention
 ```
-Akhil_Jaggari_{Company}_{RoleShort}_{PORTAL_JOB_ID}.pdf
+Resume:       Akhil_Jaggari_{Company}_{RoleShort}_{PORTAL_JOB_ID}.pdf
+Cover Letter: Akhil_Jaggari_{Company}_{RoleShort}_{PORTAL_JOB_ID}_Cover.pdf
 ```
 - `PORTAL_JOB_ID` = numeric ID from ATS URL (e.g. `7615048003` from Greenhouse, `7737241` from Stripe)
-- `RoleShort`: `SWE_Backend`, `SWE_Payments`, `SWE_Infra`, `SWE_Platform`, `SWE_Identity`
+- `RoleShort`: `SWE_Backend`, `SWE_Payments`, `SWE_Infra`, `SWE_Platform`, `SWE_Identity`, `SWE_Frontend`, `SWE_FullStack`, `SWE_Data`, `SWE_AI`
 - Paper size: **A4 always** (never Letter)
 
 ### What "tailored" means (from `modes/_profile.md`)
@@ -87,13 +129,63 @@ Akhil_Jaggari_{Company}_{RoleShort}_{PORTAL_JOB_ID}.pdf
 - **Experience:** Exactly **5 bullets per role**, reordered by JD relevance
 - **Projects:** Top 2 relevant only — see `modes/_profile.md` for which to pick
 - **Skills:** JD-relevant categories first, 4–6 items each
+- **Cover letter:** Each cover is unique — never reuse paragraphs across roles. The hook in Para 1 must reference something specific about THAT company.
 - Source of truth: `cv.md` — never hardcode metrics
 
+### End of Part 1 — Summary the agent must print
+```
+Part 1 complete.
+  Fetched:        {N} roles
+  Scored ≥ 4.2:   {M} roles
+  Resumes built:  {M} PDFs in output/
+  Covers built:   {M} PDFs in output/
+  Skipped:        {N - M} (below threshold or already in tracker)
+
+Ready for Part 2. Which apply mode?
+  1) apply for easy jobs    — Greenhouse/Lever/Ashby only (~2-4 min/app)
+  2) apply for hard jobs    — Workday/Oracle/Taleo/iCIMS only (~10-20 min/app)
+  3) apply for all jobs     — every role regardless of ATS
+```
+
 ---
+
+# 🚀 PART 2 — APPLY (browser, one tab per job)
 
 ## 🌐 Step 4: Apply (BROWSER — NEW TAB PER JOB)
 
 > **Read `modes/apply.md` before filling any form.** It is the single source of truth for all form-filling logic, candidate profile answers, EEO rules, and free-text answer templates.
+
+### Apply Modes (filter by ATS speed)
+
+When the user gives an apply command, match the trigger phrase and filter the pipeline accordingly **before** opening tabs.
+
+| Trigger phrase | Behavior | Filter rule |
+|---|---|---|
+| `apply for easy jobs` / `easy mode` / `easy only` | Fast ATS only (Greenhouse / Lever / Ashby + branded careers pages backed by these) | **Skip** any URL whose host matches any pattern below |
+| `apply for hard jobs` / `workday only` | Slow ATS only — for batched, focused sessions | **Keep only** URLs whose host matches any pattern below |
+| `apply for all jobs` / no qualifier | Everything in pipeline | No filter |
+
+**Slow-ATS host patterns (case-insensitive substring match on URL):**
+- `myworkdayjobs.com` (Workday)
+- `wd1.`, `wd2.`, `wd3.`, `wd5.`, `wd12.` (Workday shards)
+- `oraclecloud.com` / `fa.oraclecloud` (Oracle HCM / Recruiting)
+- `taleo.net` (Taleo)
+- `icims.com` (iCIMS)
+- `successfactors.` (SAP SuccessFactors)
+- `brassring.com` / `kenexa.com` (IBM Kenexa BrassRing)
+- `avature.net` (Avature)
+- `eightfold.ai` (Eightfold)
+- `phenom.com` / `phenomcareers.com` (Phenom People)
+
+**Why this distinction matters:**
+- **Easy ATS** (Greenhouse / Lever / Ashby): ~2-4 minutes per application. Short forms, prefilled fields, single-page submission, optional EEO.
+- **Slow ATS** (Workday / Oracle / Taleo / iCIMS / SuccessFactors / Avature / Eightfold / Phenom): ~10-20 minutes per application. Multi-page wizards, mandatory account creation, redundant work-history re-entry, custom screening questions.
+
+**Implementation rule for the agent:**
+1. Before opening any tab, parse `data/pipeline.md` and bucket each URL as `easy` (no slow-host pattern matches) or `hard` (matches one or more)
+2. Apply the active filter from the trigger phrase
+3. Print the bucket counts to the user before starting (e.g., "Easy mode: 285 of 313 roles will be applied to; skipping 28 slow-ATS entries: 24 Workday, 3 Oracle, 1 iCIMS")
+4. Then proceed tab-by-tab as normal, in the order they appear in `data/pipeline.md`
 
 ### Quick Rules (full detail in modes/apply.md)
 - Open a **NEW TAB** per application

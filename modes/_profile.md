@@ -55,12 +55,43 @@ Frame profile as **"Technical builder with real-world proof"** that adapts frami
 
 ## Your Portfolio / Demo
 
-<!-- If you have a live demo, dashboard, or public project:
-     url: https://yoursite.dev/demo
-     password: demo-2026
-     when_to_share: "LLMOps, AI Platform roles" -->
+**Portfolio URL:** https://akhiljaggari.vercel.app (Next.js + Tailwind + Vercel)
+- Always include this in:
+  - Resume header (under contact row, after LinkedIn)
+  - Cover letter header
+  - Application form "Portfolio" / "Personal website" / "Other URL" fields
+  - Free-text intro questions ("Anything else?") when relevant
+- Display string: `akhiljaggari.vercel.app` (drop `https://` for visual clarity in print)
+- Pair with LinkedIn — both should appear together
 
-If you have a live demo/dashboard (check profile.yml), offer access in applications for relevant roles.
+**GitHub:**
+- Primary: https://github.com/akhiljaggari123 — display as `github.com/akhiljaggari123`
+- Legacy: https://github.com/jaggarinikhil — only reference if FiberOps project is cited
+
+**LinkedIn (canonical):** https://www.linkedin.com/in/jaggariakhil/ — display as `linkedin.com/in/jaggariakhil`
+> Note: the portfolio site shows `/in/akhiljaggari/` — this is wrong; do NOT use it. Always use the cv.md slug.
+
+## Your Proof-Point Library — KitchenSync Projects
+
+> Detailed project narratives live in `article-digest.md`. Pull from there when tailoring resume bullets, cover letter proof points, and STAR stories. **Never invent metrics — pull only from cv.md and article-digest.md.**
+
+**Two flagship projects at KitchenSync:**
+
+1. **Rollfi Payroll Integration** — Full-service payroll platform built on Rollfi's RPC-style API. Owns onboarding (KYB/KYC), employee sync, payroll calculation with differential pay, jurisdiction-aware labor rules across 50 states, local time-off accrual engine (replaced 3 deprecated Rollfi APIs), webhook ingestion with polling fallback, HR document generation. **31 functional areas, 1,000+ restaurant businesses.**
+
+2. **Banking Platform** — Built on Passport (BaaS) for accounts/cards/transfers, Plaid + Stripe Financial Connections for external linking, Mercury for outbound ACH. Includes 7 transaction methods (ACH, wire, internal, check, debit/virtual cards, deposits), QBO integration with token-refresh guardrails, and a fully-automated cash flow planning engine with derived daily rows, weekly projections, A/P pay-run recommendations, and reserve management. **28 functional areas, 19-file modular route extraction from a 3,500-line monolith.**
+
+**Project routing — which to pull for what JD:**
+
+| JD signals | Project |
+|---|---|
+| Payments, Fintech, Tax, Compliance, Multi-tenant SaaS, RPC API | **Rollfi Payroll** |
+| Banking, BaaS, ACH, Wire, Cards, Plaid, Stripe FC, Mercury | **Banking — Passport** |
+| Cash flow, Forecasting, Reserve management, AP automation, Derived data | **Banking — Cash Flow Engine** |
+| Webhooks, Event-driven, Idempotency, Polling fallback | Either (use whichever has more JD overlap) |
+| Jurisdiction, Multi-state regulations, Compliance | **Rollfi — Jurisdiction Engine** |
+| QuickBooks, OAuth refresh, Period reconciliation | **Banking — QBO Integration** |
+| AI/Agent, LLMOps, Agentic workflows | **Banking — AP Recommender** (deterministic-first / agent-assisted) |
 
 ## Your Comp Targets
 
@@ -201,11 +232,14 @@ Akhil_Jaggari_{Company}_{RoleShort}_{OFFICIAL_PORTAL_JOB_ID}.pdf
 - Only if it directly demonstrates a key JD skill missing or underrepresented in work experience
 - Max **2 projects** per resume — quality over quantity
 
-**Which projects to pick (priority order):**
-1. Secure BaaS Identity Layer → for Auth/Identity/Fintech/Security roles
-2. Real-Time Payroll & Payments Pipeline → for Payments/Fintech/Kafka roles
-3. MCP Server Infrastructure → for AI Platform/LLMOps roles only
-4. Skip projects entirely if work experience already covers all JD requirements
+**Which projects to pick (priority order — KitchenSync projects from `article-digest.md`):**
+1. **Rollfi Payroll Integration** → Payroll, Payments, Fintech, Tax/Compliance, Multi-tenant SaaS, RPC API integration roles
+2. **Banking Platform (Passport)** → BaaS, ACH/Wire, Cards, Plaid/Stripe FC, Mercury, Banking infrastructure roles
+3. **Cash Flow Planning Engine** → Forecasting, Derived data models, AP automation, Reserve management, Operations tools
+4. **Jurisdiction Labor Rules Engine** → Compliance, Multi-state regulations, Rules engines, AI-augmented data pipelines
+5. **QBO Integration** → OAuth/token refresh, Period reconciliation, Accounting-system integration
+6. **A/P Pay-Run Recommender** → AI Platform, Agentic workflows, Deterministic + agent-assisted decision systems
+7. Skip projects entirely if work experience already covers all JD requirements
 
 **Project detail level:**
 - **Title** (bold, linked if public) + **badge** (domain tag e.g. "Payments & Security")

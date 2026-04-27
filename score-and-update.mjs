@@ -13,14 +13,37 @@ async function main() {
   let content = readFileSync(PIPELINE_PATH, 'utf-8');
   let lines = content.split('\n').filter(l => l.trim() !== '');
   let header = lines[0].split('\t');
-  
+
   if (!header.includes('Score')) {
     header.splice(4, 0, 'Score');
     lines[0] = header.join('\t');
   }
-  
+
   const scoreIdx = header.indexOf('Score');
   const urlIdx = header.indexOf('URL');
+
+  // Shuffle unscored rows so an early stop still yields a diverse sample
+  // across companies + role types. Scored rows stay in place at the top.
+  // Set SHUFFLE=0 to disable.
+  if (process.env.SHUFFLE !== '0') {
+    const headerLine = lines[0];
+    const scored = [];
+    const unscored = [];
+    for (const l of lines.slice(1)) {
+      const cols = l.split('\t');
+      while (cols.length <= scoreIdx) cols.push('');
+      if (cols[scoreIdx] && cols[scoreIdx] !== '') scored.push(l);
+      else unscored.push(l);
+    }
+    // Fisher–Yates shuffle
+    for (let i = unscored.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [unscored[i], unscored[j]] = [unscored[j], unscored[i]];
+    }
+    lines = [headerLine, ...scored, ...unscored];
+    writeFileSync(PIPELINE_PATH, lines.join('\n') + '\n');
+    console.log(`🔀 Shuffled ${unscored.length} unscored rows (${scored.length} already scored, kept in place)`);
+  }
 
   for (let i = 1; i < lines.length; i++) {
     let cols = lines[i].split('\t');
@@ -54,8 +77,11 @@ async function main() {
         console.warn(`  ⚠️ Score not found in output.`);
       }
 
-      console.log(`  Waiting 60s (Rate Limit Guard)...`);
-      await new Promise(resolve => setTimeout(resolve, 60000));
+      const waitMs = parseInt(process.env.GEMINI_WAIT_MS || '0', 10);
+      if (waitMs > 0) {
+        console.log(`  Waiting ${waitMs/1000}s...`);
+        await new Promise(resolve => setTimeout(resolve, waitMs));
+      }
 
     } catch (err) {
       if (err.message.includes('503') || err.message.includes('429')) {

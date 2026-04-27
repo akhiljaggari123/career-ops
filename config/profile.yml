@@ -7,8 +7,8 @@ candidate:
   phone: "940-304-7888"
   location: "Dallas, TX"
   linkedin: "https://www.linkedin.com/in/jaggariakhil/"
-  portfolio_url: ""
-  github: "https://github.com/dashboard"
+  portfolio_url: "https://akhiljaggari.vercel.app"
+  github: "https://github.com/akhiljaggari123"
   current_company: "KitchenSync"
   gender: "Male"
   hispanic_latino: "No"
@@ -120,7 +120,7 @@ target_companies:
 
 narrative:
   headline: "Senior Software Engineer | High-Scale Distributed Systems & Financial Infrastructure | Java, Node.js, Python"
-  exit_story: "Senior Software Engineer with 5 years of experience architecting high-scale distributed systems and mission-critical financial infrastructure. Expert in building secure identity services and real-time Kafka pipelines for 1,000+ businesses, achieving 99.9% uptime and 45% latency reductions. Proven track record of delivering backend systems for property debt deals exceeding $10 billion."
+  exit_story: "Senior Software Engineer with 5+ years of experience architecting high-scale distributed systems and mission-critical financial infrastructure. Expert in building secure identity services and real-time Kafka pipelines for 1,000+ businesses, achieving 99.9% uptime and 45% latency reductions. Proven track record of delivering backend systems for property debt deals exceeding $10 billion."
 
 location:
   country: "United States"
