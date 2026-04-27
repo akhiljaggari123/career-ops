@@ -1,0 +1,134 @@
+# Career-Ops Profile Configuration
+# This is the single source of truth for your personal data across all modes.
+
+candidate:
+  full_name: "Akhil Jaggari"
+  email: "ajaggari123@gmail.com"
+  phone: "940-304-7888"
+  location: "Dallas, TX"
+  linkedin: "https://www.linkedin.com/in/jaggariakhil/"
+  portfolio_url: ""
+  github: "https://github.com/dashboard"
+  current_company: "KitchenSync"
+  gender: "Male"
+  hispanic_latino: "No"
+  # Race priority: 1) South Asian  2) Asian/Pacific Islander  3) Asian  4) Other (if none above exist)
+  race: "South Asian > Asian/Pacific Islander > Asian > Other (pick first available match)"
+  veteran_status: "No"
+  how_did_you_hear: "LinkedIn (prefer if available; else pick first option in dropdown)"
+  disability: "No"
+  twitter: ""
+
+# Comprehensive form answers for automation
+form_answers:
+  legal:
+    authorized_us: "Yes"
+    require_sponsorship: "No"
+    visa_status: "F1-opT"
+    citizen_pr: "No"
+    convicted_felon: "No"
+    over_18: "Yes"
+  compensation:
+    expectations: "130k"
+    current: "136k"
+    hourly_rate: "70/hr"
+    bonus_equity_expectations: "No"
+    comfortable_with_range: "Yes"
+  availability:
+    start_date: "Immediately"
+    notice_period: "None"
+    currently_employed: "Yes"
+    full_time: "Yes"
+    travel_percentage: "100%"
+    relocation: "Yes"
+    remote_hybrid_onsite: "Yes"
+  education:
+    highest_level: "Masters"
+    cs_degree: "Yes"
+    university: "University of North Texas"
+    graduation_year: "2025"
+    certifications: ["AWS Certified Data Engineer", "AWS Certified Developer", "Microsoft Certified Azure Fundamentals"]
+  experience:
+    total_years: 5
+    role_years: 5
+    startup_experience: "Yes"
+    enterprise_experience: 5
+    remote_experience: "Yes"
+    managed_team: "Yes"
+    team_size: 5
+    agile_scrum: "Yes"
+  technical_years:
+    java_python_js_node_go: 5
+    aws_gcp_azure: 5
+    microservices: 5
+    rest_graphql: 5
+    docker_kubernetes: 5
+    cicd: 5
+    relational_nosql_db: 5
+    distributed_systems: 5
+    ml_ai_etl: 3
+    mobile: 2
+    testing_unit_e2e: 5
+    system_design: 4
+
+process_rules:
+  - "Always open a NEW TAB for each application."
+  - "Never search for career pages in the browser if a direct link is available."
+  - "Verify link status (Active/404) before generating custom resumes."
+  - "Always use the direct application URL from the pipeline."
+  - "Keep all filled application tabs open for final user review/submission."
+
+target_roles:
+  primary:
+    - "Senior Software Engineer"
+    - "Backend Engineer"
+    - "Infrastructure Engineer"
+    - "Distributed Systems Engineer"
+    - "SDE II / SDE III"
+    - "Platform Engineer"
+  archetypes:
+    - name: "Senior Software Engineer"
+      level: "Senior"
+      fit: "primary"
+
+target_companies:
+  - "Amazon"
+  - "IBM"
+  - "Capital One"
+  - "Wells Fargo"
+  - "DoorDash"
+  - "Uber"
+  - "Adobe"
+  - "Walmart"
+  - "Oracle"
+  - "Microsoft"
+  - "JPMorganChase"
+  - "PayPal"
+  - "Apple"
+  - "Intuit"
+  - "Toast"
+  - "Atlassian"
+  - "Salesforce"
+  - "Databricks"
+  - "Snowflake"
+  - "Rollfi"
+  - "Priority"
+  - "Meta"
+  - "Palantir"
+  - "Affirm"
+  - "Stripe"
+
+narrative:
+  headline: "Senior Software Engineer | High-Scale Distributed Systems & Financial Infrastructure | Java, Node.js, Python"
+  exit_story: "Senior Software Engineer with 5 years of experience architecting high-scale distributed systems and mission-critical financial infrastructure. Expert in building secure identity services and real-time Kafka pipelines for 1,000+ businesses, achieving 99.9% uptime and 45% latency reductions. Proven track record of delivering backend systems for property debt deals exceeding $10 billion."
+
+location:
+  country: "United States"
+  city: "Dallas, TX"
+  location_on_resume: "Dallas, TX"
+  exact_address_for_forms: "512 S Carroll Blvd, Apt 243, Denton, TX 76201"
+  visa_status: "F1 OPT, requires sponsorship (H1B)"
+
+naming_conventions:
+  resume: "Akhil_Jaggari_{company}_{role}_{job_id}.pdf"
+  use_job_id_for_uniqueness: true
