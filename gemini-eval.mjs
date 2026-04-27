@@ -42,6 +42,7 @@ const PATHS = {
   // Primary evaluation logic lives in these two mode files
   shared:   join(ROOT, 'modes', '_shared.md'),
   oferta:   join(ROOT, 'modes', 'oferta.md'),
+  profile:  join(ROOT, 'modes', '_profile.md'),
   // Canonical skill path referenced in Issue #344
   evaluate: join(ROOT, '.claude', 'skills', 'career-ops', 'SKILL.md'),
   cv:       join(ROOT, 'cv.md'),
@@ -87,7 +88,7 @@ if (args.length === 0 || args[0] === '--help' || args[0] === '-h') {
 
 // Parse flags
 let jdText = '';
-let modelName = process.env.GEMINI_MODEL || 'gemini-2.0-flash';
+let modelName = process.env.GEMINI_MODEL || 'gemini-1.5-flash';
 let saveReport = true;
 
 for (let i = 0; i < args.length; i++) {
@@ -163,15 +164,16 @@ if (!readdirSync) {
 // ---------------------------------------------------------------------------
 console.log('\n📂  Loading context files...');
 
-const sharedContext  = readFile(PATHS.shared,   'modes/_shared.md');
-const ofertaLogic    = readFile(PATHS.oferta,   'modes/oferta.md');
+const sharedContext  = readFile(PATHS.shared,   '_shared.md');
+const ofertaLogic    = readFile(PATHS.oferta,   'oferta.md');
+const profileContext = readFile(PATHS.profile,  '_profile.md');
 const cvContent      = readFile(PATHS.cv,       'cv.md');
 
 // ---------------------------------------------------------------------------
 // Build the system prompt (mirrors the Claude skill router logic)
 // ---------------------------------------------------------------------------
-const systemPrompt = `You are career-ops, an AI-powered job search assistant.
-You evaluate job offers against the user's CV using a structured A-G scoring system.
+const systemPrompt = `You are career-ops, a General Software Engineering Career Assistant.
+You evaluate job offers (Full Stack, Backend, Frontend, and AI) against the user's CV using a structured A-G scoring system.
 
 Your evaluation methodology is defined below. Follow it exactly.
 
@@ -179,6 +181,11 @@ Your evaluation methodology is defined below. Follow it exactly.
 SYSTEM CONTEXT (_shared.md)
 ═══════════════════════════════════════════════════════
 ${sharedContext}
+
+═══════════════════════════════════════════════════════
+USER PROFILE & CUSTOM RULES (_profile.md)
+═══════════════════════════════════════════════════════
+${profileContext}
 
 ═══════════════════════════════════════════════════════
 EVALUATION MODE (oferta.md)
@@ -197,8 +204,9 @@ IMPORTANT OPERATING RULES FOR THIS CLI SESSION
    - For Block D (Comp research): provide salary estimates based on your training data, clearly noted as estimates.
    - For Block G (Legitimacy): analyze the JD text only; skip URL/page freshness checks.
    - Post-evaluation file saving is handled by the script, not by you.
-2. Generate Blocks A through G in full, in English, unless the JD is in another language.
-3. At the very end, output a machine-readable summary block in this exact format:
+2. Generate Blocks A through G in full.
+3. CRITICAL: Output EVERYTHING in English. Even if the JD is in Spanish or another language, your reasoning, reports, and summary MUST be in English.
+4. At the very end, output a machine-readable summary block in this exact format:
 
 ---SCORE_SUMMARY---
 COMPANY: <company name or "Unknown">

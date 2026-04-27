@@ -25,6 +25,12 @@
 
 - Layout single-column (sin sidebars, sin columnas paralelas)
 - Headers estándar: "Professional Summary", "Work Experience", "Education", "Skills", "Certifications", "Projects"
+- **CRITICAL:** ZERO parentheses or brackets in the experience bullets. Make it clean and professional.
+- **CRITICAL:** Use humanized, senior-level action verbs (Architected, Designed, Optimized, Streamlined, Delivered). NUNCA use "worked on" or "helped".
+- **CRITICAL:** Use the `%` symbol for all percentages.
+- **CRITICAL:** Include at least one point for mentoring/Agile and one point for leveraging AI tools (Copilot, Cursor).
+- **CRITICAL:** Select ONLY the 2 most relevant projects from cv.md based on the job description. Prioritize professional/company projects over personal ones unless they are a perfect technical match.
+- **CRITICAL:** NEVER modify official job titles from cv.md. Always use the exact title as listed in the source of truth. Tailor only the professional summary and experience bullet points.
 - Sin texto en imágenes/SVGs
 - Sin info crítica en headers/footers del PDF (ATS los ignora)
 - UTF-8, texto seleccionable (no rasterizado)

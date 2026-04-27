@@ -1,107 +1,129 @@
-# Modo: apply — Asistente de Aplicación en Vivo
+# Mode: apply — Live Application Assistant
 
-Modo interactivo para cuando el candidato está rellenando un formulario de aplicación en Chrome. Lee lo que hay en pantalla, carga el contexto previo de la oferta, y genera respuestas personalizadas para cada pregunta del formulario.
+Interactive mode for filling job application forms. Reads visible fields, loads prior evaluation context, and generates personalized answers for every form question.
 
-## Requisitos
+## Requirements
 
-- **Mejor con Playwright visible**: En modo visible, el candidato ve el navegador y Claude puede interactuar con la página.
-- **Sin Playwright**: el candidato comparte un screenshot o pega las preguntas manualmente.
+- **Best with Playwright (browser agent):** Agent sees the page and fills fields directly.
+- **Without Playwright:** Candidate shares a screenshot or pastes questions manually.
 
 ## Workflow
 
 ```
-1. DETECTAR    → Leer Chrome tab activa (screenshot/URL/título)
-2. IDENTIFICAR → Extraer empresa + rol de la página
-3. BUSCAR      → Match contra reports existentes en reports/
-4. CARGAR      → Leer report completo + Section G (si existe)
-5. COMPARAR    → ¿El rol en pantalla coincide con el evaluado? Si cambió → avisar
-6. ANALIZAR    → Identificar TODAS las preguntas del formulario visibles
-7. GENERAR     → Para cada pregunta, generar respuesta personalizada
-8. PRESENTAR   → Mostrar respuestas formateadas para copy-paste
+1. DETECT    → Read active browser tab (URL/title/page content)
+2. IDENTIFY  → Extract company + role from the page
+3. SEARCH    → Match against existing reports in reports/
+4. LOAD      → Read full report + Section G (draft answers, if present)
+5. VERIFY    → Does the role on screen match the evaluated role? If changed → warn
+6. ANALYZE   → Identify ALL visible form fields
+7. GENERATE  → For each field, generate a personalized answer
+8. FILL      → Fill fields using profile + JD-tailored answers
 ```
 
-## Paso 1 — Detectar la oferta
+## Candidate Profile (always available — load from config/profile.yml + ELITE_SOP.md)
 
-**Con Playwright:** Tomar snapshot de la página activa. Leer título, URL, y contenido visible.
+### Standard Fields (fill from profile — no generation needed)
+| Field | Value |
+|---|---|
+| First Name | Akhil |
+| Last Name | Jaggari |
+| Email | ajaggari123@gmail.com |
+| Phone | 940-304-7888 |
+| LinkedIn URL | https://www.linkedin.com/in/jaggariakhil/ |
+| Address | 512 S Carroll Blvd, Apt 243, Denton, TX 76201 |
+| City / State | Denton, TX |
+| Current Company | KitchenSync |
+| Current Title | Senior Software Engineer |
+| Expected Salary | $130,000 |
+| Current Salary | $136,000 |
+| Work Authorization | Yes, authorized to work in the US |
+| Visa Status | F1-OPT |
+| Needs Sponsorship | Yes (H1B) |
+| Relocate | Yes |
+| Remote/Hybrid/Onsite | Yes to all |
+| Start Date | Immediately / 2 weeks |
+| Education | M.S. Computer Science, University of North Texas, May 2025, GPA 4.0 |
+| Years of Experience | 5 |
 
-**Sin Playwright:** Pedir al candidato que:
-- Comparta un screenshot del formulario (Read tool lee imágenes)
-- O pegue las preguntas del formulario como texto
-- O diga empresa + rol para que lo busquemos
+### EEO / Demographics (fill exactly as specified)
+| Field | Value |
+|---|---|
+| Gender | **Male / Man** (NEVER Female) |
+| Hispanic/Latino | No |
+| Race/Ethnicity | South Asian → Asian/Pacific Islander → Asian → Other (first available) |
+| Veteran | Not a veteran / I am not a protected veteran |
+| Disability | No / I do not have a disability |
+| How did you hear | LinkedIn (if available), else first dropdown option |
 
-## Paso 2 — Identificar y buscar contexto
+### Resume / Cover Letter Upload
+- **NEVER upload resume or cover letter** — user handles manually
+- Skip all upload fields
 
-1. Extraer nombre de empresa y título del rol de la página
-2. Buscar en `reports/` por nombre de empresa (Grep case-insensitive)
-3. Si hay match → cargar el report completo
-4. Si hay Section G → cargar los draft answers previos como base
-5. Si NO hay match → avisar y ofrecer ejecutar auto-pipeline rápido
+## Step 1 — Detect the Offer
 
-## Paso 3 — Detectar cambios en el rol
+Navigate to the application URL. Read title, URL, and visible content.
 
-Si el rol en pantalla difiere del evaluado:
-- **Avisar al candidato**: "El rol ha cambiado de [X] a [Y]. ¿Quieres que re-evalúe o adapto las respuestas al nuevo título?"
-- **Si adaptar**: Ajustar las respuestas al nuevo rol sin re-evaluar
-- **Si re-evaluar**: Ejecutar evaluación A-F completa, actualizar report, regenerar Section G
-- **Actualizar tracker**: Cambiar título del rol en applications.md si procede
+If a report exists in `reports/` for this company → load it.
+If no report → use JD content from the page + cv.md as context.
 
-## Paso 4 — Analizar preguntas del formulario
+## Step 2 — Analyze All Form Fields
 
-Identificar TODAS las preguntas visibles:
-- Campos de texto libre (cover letter, why this role, etc.)
-- Dropdowns (how did you hear, work authorization, etc.)
-- Yes/No (relocation, visa, etc.)
-- Campos de salario (range, expectation)
-- Upload fields (resume, cover letter PDF)
+Identify every visible field:
+- **Standard fields** → fill from candidate profile above (no generation needed)
+- **Free-text fields** (why this role, what excites you, tell us about yourself) → generate tailored answer
+- **Dropdowns** → select correct value per profile rules above
+- **Yes/No fields** → answer per profile rules above
+- **Salary fields** → $130,000 expected
+- **Checkboxes** → check as applicable
+- **Upload fields** → SKIP
 
-Clasificar cada pregunta:
-- **Ya respondida en Section G** → adaptar la respuesta existente
-- **Nueva pregunta** → generar respuesta desde el report + cv.md
+## Step 3 — Generate Free-Text Answers
 
-## Paso 5 — Generar respuestas
+For every free-text question not covered by standard profile data, generate a tailored answer using:
 
-Para cada pregunta, generar la respuesta siguiendo:
+1. **JD keywords**: From the job description visible on the page
+2. **Report Section G**: If a report exists in reports/ for this company
+3. **Proof points** (always available):
+   - "Architected real-time Kafka payment pipelines for 1,000+ restaurant businesses with 99.9% uptime" (KitchenSync)
+   - "$10B+ loan portfolio backend infrastructure" (Berkadia)
+   - "10k+ RPM tokenized payment engine" (Accenture)
+   - "45% latency reduction on identity services" (Accenture)
+   - "Mentored 5 engineers, 20% delivery velocity improvement" (KitchenSync)
+4. **Tone**: Confident, specific, "I'm choosing you because..." framing. Never generic.
+5. **Length**: 2-4 sentences for short fields, 150-300 words for essay fields
 
-1. **Contexto del report**: Usar proof points del bloque B, historias STAR del bloque F
-2. **Section G previa**: Si existe una respuesta draft, usarla como base y refinar
-3. **Tono "I'm choosing you"**: Mismo framework del auto-pipeline
-4. **Especificidad**: Referenciar algo concreto del JD visible en pantalla
-5. **career-ops proof point**: Incluir en "Additional info" si hay campo para ello
+### Common Free-Text Templates
 
-**Formato de output:**
+**"Why this company / Why this role?"**
+> I'm drawn to [Company] because [specific product/mission from JD]. My experience building [most relevant proof point] maps directly to [JD requirement]. I want to work on infrastructure that [company's core mission] — that's the kind of scale and impact I'm actively seeking.
 
-```
-## Respuestas para [Empresa] — [Rol]
+**"Tell us about yourself / Professional summary"**
+> Senior Software Engineer with 5 years building [JD domain — payments / distributed systems / fintech]. At KitchenSync I [most relevant proof point]. Previously at Berkadia I delivered $10B+ in financial infrastructure. I specialize in [top 2 JD keywords] and I'm excited to bring that experience to [Company]'s [team/product].
 
-Basado en: Report #NNN | Score: X.X/5 | Arquetipo: [tipo]
+**"What are your strengths?"**
+> I excel at translating complex distributed systems requirements into reliable, scalable production code. At Accenture I improved service throughput by 45% by migrating monoliths to microservices. I'm also strong at cross-functional delivery — I've collaborated with Product, Design, and Analytics teams to ship payment systems that directly impact business revenue.
 
----
+**"Salary expectations?"**
+> $130,000 base. Open to discussing total compensation.
 
-### 1. [Pregunta exacta del formulario]
-> [Respuesta lista para copy-paste]
+## Step 4 — Fill and Verify
 
-### 2. [Siguiente pregunta]
-> [Respuesta]
+1. Fill all fields
+2. Scroll through entire form to catch hidden sections
+3. Accept any cookie/consent banners immediately
+4. **STOP before Submit** — leave tab open for user to review and attach resume
+5. Report all fields filled and their values
 
-...
+## Step 5 — Post-Apply (after user confirms submission)
 
----
+1. Update `data/applications.md` status from "Evaluated" → "Applied" (via TSV + merge-tracker.mjs)
+2. Update report Section G with final answers used
+3. Suggest next step: LinkedIn outreach to hiring manager
 
-Notas:
-- [Cualquier observación sobre el rol, cambios, etc.]
-- [Sugerencias de personalización que el candidato debería revisar]
-```
-
-## Paso 6 — Post-apply (opcional)
-
-Si el candidato confirma que envió la aplicación:
-1. Actualizar estado en `applications.md` de "Evaluada" a "Aplicado"
-2. Actualizar Section G del report con las respuestas finales
-3. Sugerir siguiente paso: `/career-ops contacto` para LinkedIn outreach
-
-## Scroll handling
-
-Si el formulario tiene más preguntas que las visibles:
-- Pedir al candidato que haga scroll y comparta otro screenshot
-- O que pegue las preguntas restantes
-- Procesar en iteraciones hasta cubrir todo el formulario
+## Critical Rules
+- **NEVER submit** without user confirmation
+- **NEVER upload** resume or cover letter — user does it manually
+- **Always accept** all cookie/consent/privacy banners immediately
+- **Gender = Male/Man** always — double-check after filling EEO section
+- **Last Name = Jaggari only** — never append LinkedIn URL or any other text
+- Scroll through ALL sections of form — don't miss hidden fields below the fold

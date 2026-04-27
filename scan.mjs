@@ -264,6 +264,18 @@ async function main() {
   const config = parseYaml(readFileSync(PORTALS_PATH, 'utf-8'));
   const companies = config.tracked_companies || [];
   const titleFilter = buildTitleFilter(config.title_filter);
+  
+  // Location Filter
+  const locPos = (config.location_filter?.positive || []).map(l => l.toLowerCase());
+  const locNeg = (config.location_filter?.negative || []).map(l => l.toLowerCase());
+  const locationFilter = (loc) => {
+    if (!loc) return true; // Keep if location is empty (often implies remote or unspecified)
+    const lower = loc.toLowerCase();
+    const isNegative = locNeg.some(k => lower.includes(k));
+    if (isNegative) return false;
+    const isPositive = locPos.length === 0 || locPos.some(k => lower.includes(k));
+    return isPositive;
+  };
 
   // 2. Filter to enabled companies with detectable APIs
   const targets = companies
@@ -298,6 +310,10 @@ async function main() {
 
       for (const job of jobs) {
         if (!titleFilter(job.title)) {
+          totalFiltered++;
+          continue;
+        }
+        if (!locationFilter(job.location)) {
           totalFiltered++;
           continue;
         }

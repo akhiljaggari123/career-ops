@@ -29,7 +29,7 @@ The evaluation uses 6 blocks (A-F) with a global score of 1-5:
 
 | Dimension | What it measures |
 |-----------|-----------------|
-| Match con CV | Skills, experience, proof points alignment |
+| CV Match | Skills, experience, proof points alignment |
 | North Star alignment | How well the role fits the user's target archetypes (from _profile.md) |
 | Comp | Salary vs market (5=top quartile, 1=well below) |
 | Cultural signals | Company culture, growth, stability, remote policy |
@@ -76,12 +76,15 @@ Classify every offer into one of these types (or hybrid of 2):
 
 | Archetype | Key signals in JD |
 |-----------|-------------------|
-| AI Platform / LLMOps | "observability", "evals", "pipelines", "monitoring", "reliability" |
-| Agentic / Automation | "agent", "HITL", "orchestration", "workflow", "multi-agent" |
-| Technical AI PM | "PRD", "roadmap", "discovery", "stakeholder", "product manager" |
-| AI Solutions Architect | "architecture", "enterprise", "integration", "design", "systems" |
-| AI Forward Deployed | "client-facing", "deploy", "prototype", "fast delivery", "field" |
-| AI Transformation | "change management", "adoption", "enablement", "transformation" |
+| **Full Stack Engineer** | "React", "Angular", "Node.js", "TypeScript", "UI/UX", "Product" |
+| **Backend Engineer** | "Node.js", "Java", "Spring Boot", "SQL", "APIs", "Distributed Systems", "Identity", "Auth", "Security" |
+| **Frontend Engineer** | "React", "Angular", "CSS", "Frontend", "UI", "Component Library", "Next.js" |
+| **AI Platform / LLMOps** | "observability", "evals", "pipelines", "monitoring", "reliability" |
+| **Agentic / Automation** | "agent", "HITL", "orchestration", "workflow", "multi-agent", "MCP" |
+| **Technical AI PM** | "PRD", "roadmap", "discovery", "stakeholder", "product manager" |
+| **AI Solutions Architect** | "architecture", "enterprise", "integration", "design", "systems" |
+| **AI Forward Deployed** | "client-facing", "deploy", "prototype", "fast delivery", "field" |
+| **AI Transformation** | "change management", "adoption", "enablement", "transformation" |
 
 After detecting archetype, read `modes/_profile.md` for the user's specific framing and proof points for that archetype.
 
@@ -97,6 +100,8 @@ After detecting archetype, read `modes/_profile.md` for the user's specific fram
 6. Generate a PDF without reading the JD first
 7. Use corporate-speak
 8. Ignore the tracker (every evaluated offer gets registered)
+9. Use parentheses or brackets in experience bullets or professional summaries
+10. Modify official job titles from cv.md
 
 ### ALWAYS
 
@@ -107,7 +112,7 @@ After detecting archetype, read `modes/_profile.md` for the user's specific fram
 3. Cite exact lines from CV when matching
 4. Use WebSearch for comp and company data
 5. Register in tracker after evaluating
-6. Generate content in the language of the JD (EN default)
+6. Generate content ALWAYS in English (ignore JD language for output).
 7. Be direct and actionable -- no fluff
 8. Native tech English for generated text. Short sentences, action verbs, no passive voice.
 8b. Case study URLs in PDF Professional Summary (recruiter may only read this).
